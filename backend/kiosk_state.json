@@ -1,0 +1,492 @@
+{
+  "paper": {
+    "total": 500,
+    "remaining": 491,
+    "lastRefillAt": "2026-05-27T20:54:53",
+    "warnBelow": 50,
+    "blockBelow": 0
+  },
+  "jobs": {
+    "today": 3,
+    "todayDate": "2026-05-27",
+    "total": 24,
+    "recent": [
+      {
+        "at": "2026-05-27T21:04:26",
+        "sheets": 9,
+        "mode": "printer",
+        "file": "OS.pdf",
+        "settings": {
+          "pages": "custom",
+          "pageRange": "1-35",
+          "copies": 1,
+          "pagesPerSide": 4,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-27T20:49:06",
+        "sheets": 0,
+        "mode": "error",
+        "file": "OS.pdf",
+        "settings": {
+          "pages": "range",
+          "pageRange": "1-10",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": "Принтер «EPSON M3180 Series» не ответил за 30 с. Возможно, требует ручного диалога (например Microsoft Print to PDF)."
+      },
+      {
+        "at": "2026-05-27T20:33:51",
+        "sheets": 1,
+        "mode": "printer",
+        "file": "1.jpg",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-24T14:32:29",
+        "sheets": 1,
+        "mode": "printer",
+        "file": "Practical_9_PMF_PDF_CDF(Questions) (1).pdf",
+        "settings": {
+          "pages": "range",
+          "pageRange": "1-1",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-24T14:31:07",
+        "sheets": 1,
+        "mode": "printer",
+        "file": "Practical_9_PMF_PDF_CDF(Questions) (1).pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "1-1",
+          "copies": 1,
+          "pagesPerSide": 4,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-23T22:28:14",
+        "sheets": 1,
+        "mode": "printer",
+        "file": "Feature_scalling_techniques_Outliers_Handling (1).pdf",
+        "settings": {
+          "pages": "range",
+          "pageRange": "1-3",
+          "copies": 1,
+          "pagesPerSide": 4,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-23T22:22:51",
+        "sheets": 0,
+        "mode": "error",
+        "file": "Probability_Bayes_theorem(Questions) (1).pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 4,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com."
+      },
+      {
+        "at": "2026-05-23T22:19:09",
+        "sheets": 0,
+        "mode": "error",
+        "file": "Vectors_Part_1 (3).pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 4,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com."
+      },
+      {
+        "at": "2026-05-23T22:03:29",
+        "sheets": 0,
+        "mode": "error",
+        "file": "Vectors_Part_1 (3).pdf",
+        "settings": {
+          "pages": "range",
+          "pageRange": "1-3",
+          "copies": 1,
+          "pagesPerSide": 4,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com."
+      },
+      {
+        "at": "2026-05-23T22:01:29",
+        "sheets": 0,
+        "mode": "error",
+        "file": "Vectors_Part_1 (3).pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 4,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com."
+      },
+      {
+        "at": "2026-05-23T21:57:49",
+        "sheets": 0,
+        "mode": "error",
+        "file": "Feature_scalling_techniques_Outliers_Handling (1).pdf",
+        "settings": {
+          "pages": "range",
+          "pageRange": "1-3",
+          "copies": 1,
+          "pagesPerSide": 4,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com."
+      },
+      {
+        "at": "2026-05-23T21:50:32",
+        "sheets": 0,
+        "mode": "error",
+        "file": "Lect(Answers)_Bayes_Theorem (2).pdf",
+        "settings": {
+          "pages": "range",
+          "pageRange": "1-1",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com."
+      },
+      {
+        "at": "2026-05-23T21:31:51",
+        "sheets": 0,
+        "mode": "error",
+        "file": "Vectors_Part_1 (3).pdf",
+        "settings": {
+          "pages": "range",
+          "pageRange": "1-1",
+          "copies": 1,
+          "pagesPerSide": 4,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com."
+      },
+      {
+        "at": "2026-05-23T21:27:23",
+        "sheets": 1,
+        "mode": "file",
+        "file": "P6_Vector_operation(Questions) (1).pdf",
+        "settings": {
+          "pages": "range",
+          "pageRange": "1-1",
+          "copies": 1,
+          "pagesPerSide": 2,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-23T01:44:40",
+        "sheets": 7,
+        "mode": "file",
+        "file": "Справка_антиплагиат_4702.pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 8,
+          "duplex": false,
+          "orientation": "landscape"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-23T01:39:08",
+        "sheets": 6,
+        "mode": "file",
+        "file": "test.pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "landscape"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-23T01:39:07",
+        "sheets": 6,
+        "mode": "file",
+        "file": "test.pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-23T01:04:33",
+        "sheets": 2,
+        "mode": "file",
+        "file": "Vector_part1_Questions (1).pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 2,
+          "pagesPerSide": 2,
+          "duplex": false,
+          "orientation": "landscape"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-23T01:01:46",
+        "sheets": 9,
+        "mode": "file",
+        "file": "Lesson_07_Operating_Systems_&_System_Programming_Practice.pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "1-1",
+          "copies": 1,
+          "pagesPerSide": 4,
+          "duplex": false,
+          "orientation": "landscape"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-23T00:53:55",
+        "sheets": 0,
+        "mode": "error",
+        "file": "test.png",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "landscape"
+        },
+        "error": "Не удалось конвертировать изображение: cannot identify image file 'C:\\\\Users\\\\elmur\\\\OneDrive\\\\Рабочий стол\\\\au.copy\\\\backend\\\\storage\\\\PBDGVJ.png'"
+      },
+      {
+        "at": "2026-05-23T00:53:54",
+        "sheets": 0,
+        "mode": "error",
+        "file": "test.png",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": "Не удалось конвертировать изображение: cannot identify image file 'C:\\\\Users\\\\elmur\\\\OneDrive\\\\Рабочий стол\\\\au.copy\\\\backend\\\\storage\\\\BYKVPG.png'"
+      },
+      {
+        "at": "2026-05-23T00:51:04",
+        "sheets": 6,
+        "mode": "file",
+        "file": "test.pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-23T00:51:03",
+        "sheets": 3,
+        "mode": "file",
+        "file": "test.pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 2,
+          "duplex": false,
+          "orientation": "landscape"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-23T00:51:02",
+        "sheets": 3,
+        "mode": "file",
+        "file": "test.pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 2,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      }
+    ]
+  },
+  "errors": [
+    {
+      "at": "2026-05-27T20:49:06",
+      "message": "Принтер «EPSON M3180 Series» не ответил за 30 с. Возможно, требует ручного диалога (например Microsoft Print to PDF).",
+      "context": {
+        "code": "ENSVCH"
+      }
+    },
+    {
+      "at": "2026-05-23T22:22:51",
+      "message": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com.",
+      "context": {
+        "code": "26PEMA"
+      }
+    },
+    {
+      "at": "2026-05-23T22:19:09",
+      "message": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com.",
+      "context": {
+        "code": "KAZ4XF"
+      }
+    },
+    {
+      "at": "2026-05-23T22:03:29",
+      "message": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com.",
+      "context": {
+        "code": "NJ9MUP"
+      }
+    },
+    {
+      "at": "2026-05-23T22:01:29",
+      "message": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com.",
+      "context": {
+        "code": "KQH772"
+      }
+    },
+    {
+      "at": "2026-05-23T21:57:49",
+      "message": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com.",
+      "context": {
+        "code": "74657R"
+      }
+    },
+    {
+      "at": "2026-05-23T21:50:32",
+      "message": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com.",
+      "context": {
+        "code": "BHJ3UB"
+      }
+    },
+    {
+      "at": "2026-05-23T21:31:51",
+      "message": "Ghostscript не найден. AU_GS_PATH='C:\\Program Files\\gs\\gs10.04.0\\bin\\gswin64c.exe'. Скачайте gswin64c.exe с ghostscript.com.",
+      "context": {
+        "code": "AV8Y8C"
+      }
+    },
+    {
+      "at": "2026-05-23T00:53:55",
+      "message": "Не удалось конвертировать изображение: cannot identify image file 'C:\\\\Users\\\\elmur\\\\OneDrive\\\\Рабочий стол\\\\au.copy\\\\backend\\\\storage\\\\PBDGVJ.png'",
+      "context": {
+        "code": "PBDGVJ"
+      }
+    },
+    {
+      "at": "2026-05-23T00:53:54",
+      "message": "Не удалось конвертировать изображение: cannot identify image file 'C:\\\\Users\\\\elmur\\\\OneDrive\\\\Рабочий стол\\\\au.copy\\\\backend\\\\storage\\\\BYKVPG.png'",
+      "context": {
+        "code": "BYKVPG"
+      }
+    }
+  ],
+  "startedAt": "2026-05-23T00:22:28",
+  "lastJobAt": "2026-05-27T21:04:26",
+  "reports": [
+    {
+      "id": 1779483545340,
+      "at": "2026-05-23T01:59:05",
+      "category": "Не читается код",
+      "description": "",
+      "ip": "127.0.0.1",
+      "lang": "ru",
+      "screen": 1,
+      "resolved": false
+    },
+    {
+      "id": 1779481896291,
+      "at": "2026-05-23T01:31:36",
+      "category": "????? ?????",
+      "description": "???? ???? 3",
+      "ip": "127.0.0.1",
+      "lang": "ru",
+      "screen": null,
+      "resolved": false
+    },
+    {
+      "id": 1779481896282,
+      "at": "2026-05-23T01:31:36",
+      "category": "????? ?????",
+      "description": "???? ???? 2",
+      "ip": "127.0.0.1",
+      "lang": "ru",
+      "screen": null,
+      "resolved": false
+    },
+    {
+      "id": 1779481895856,
+      "at": "2026-05-23T01:31:35",
+      "category": "????? ?????",
+      "description": "???? ???? 1",
+      "ip": "127.0.0.1",
+      "lang": "ru",
+      "screen": null,
+      "resolved": false
+    }
+  ]
+}

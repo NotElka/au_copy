@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /* Kiosk: текст не выделяется случайным касанием */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  /* Iframe-внутренний скролл при касании работает плавно */
+  -webkit-overflow-scrolling: touch;
+  /* Запрет «жестов» браузера (зум двумя пальцами и т.п.) */
+  touch-action: manipulation;
+  overscroll-behavior: none;
+  /* Сглаживание шрифта — текст мягче и глаже на экране */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+html { font-size: 17px; }
+
+* {
+  font-family: 'Rubik', sans-serif;
+}
+
+/* Поля ввода — выделение текста разрешаем */
+input, textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Чёткий визуальный feedback на тап */
+button, [role="button"], .cursor-pointer {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+button:active, [role="button"]:active, .cursor-pointer:active {
+  filter: brightness(0.95);
+}
+
+/* Скрываем нативные дёрганные outlines, оставляя focus-визуал в Tailwind */
+button:focus, [role="button"]:focus { outline: none; }
+
+/* Скроллбар внутри iframe-PDF — узкий и темный, чтоб не отвлекал */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: #94A3B8; border-radius: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+.screen-enter {
+  animation: screenIn 300ms ease forwards;
+}
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pricePulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.price-pulse { animation: pricePulse 300ms ease; }
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(37,99,235,0.4); }
+  70% { box-shadow: 0 0 0 20px rgba(37,99,235,0); }
+  100% { box-shadow: 0 0 0 0 rgba(37,99,235,0); }
+}
+
+.pulse-ring { animation: pulse-ring 2s infinite; }
+
+@keyframes checkDraw {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: 0; }
+}
+
+.check-animate { animation: checkDraw 0.5s ease forwards 0.3s; }
+
+@keyframes confetti {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(var(--tx), var(--ty)) rotate(360deg); opacity: 0; }
+}
+
+.confetti-dot { animation: confetti 0.8s ease forwards; }
+
+@keyframes dotBlink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+.dot-1 { animation: dotBlink 1.2s infinite 0s; }
+.dot-2 { animation: dotBlink 1.2s infinite 0.4s; }
+.dot-3 { animation: dotBlink 1.2s infinite 0.8s; }
+
+@keyframes ringPulse {
+  0%   { opacity: 0.9; transform: scale(0.85); }
+  70%  { opacity: 0;   transform: scale(1.35); }
+  100% { opacity: 0;   transform: scale(1.35); }
+}
