@@ -16,6 +16,7 @@ import logging
 import math
 import re
 import shutil
+import subprocess
 import tempfile
 from datetime import datetime
 from pathlib import Path
@@ -252,11 +253,15 @@ async def _send_to_printer(pdf: Path, copies: int, duplex: bool) -> None:
     args.append(str(pdf))
 
     log.info("gs cmd: %s", " ".join(args))
+    # На Windows скрываем консольное окно gswin64c.exe (иначе при каждой печати
+    # мелькает чёрное окно Ghostscript). CREATE_NO_WINDOW есть только в Windows.
+    creationflags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
     try:
         proc = await asyncio.create_subprocess_exec(
             *args,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
+            creationflags=creationflags,
         )
     except FileNotFoundError as exc:
         raise PrintError(f"не удалось запустить Ghostscript: {exc}") from exc
