@@ -178,12 +178,12 @@ const Screen1Upload = React.memo(({ onNext, onSessionLoaded }) => {
             <input
               type="text"
               inputMode="none"
-              className={`w-full h-[68px] text-[32px] tracking-[0.32em] text-center border-[1.5px] rounded-2xl placeholder-[#CBD5E1] focus:outline-none uppercase transition-all duration-150 font-bold bg-white cursor-pointer shadow-sm ${
+              className={`w-full h-[68px] text-[32px] tracking-[0.32em] text-center border-[1.5px] rounded-2xl placeholder-[#CBD5E1] placeholder:text-[20px] placeholder:tracking-normal placeholder:normal-case placeholder:font-medium focus:outline-none uppercase transition-all duration-150 font-bold bg-white cursor-pointer shadow-sm ${
                 error
                   ? 'border-red-400 focus:border-red-500 focus:bg-red-50'
                   : 'border-[#E2E8F0] focus:border-primary focus:bg-[#EFF6FF] focus:shadow-md focus:shadow-primary/10'
               }`}
-              placeholder="A7K2NP"
+              placeholder={t('screen1.codePlaceholder')}
               value={code}
               onChange={handleCodeChange}
               onKeyDown={handleKeyDown}

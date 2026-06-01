@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { usePrintPrice } from '../../hooks/usePrintPrice';
 import PrintPreview from '../PrintPreview';
+import NumericKeyboard from '../NumericKeyboard';
 import { useT } from '../../i18n/LanguageProvider';
 
 const Toggle = ({ checked, onChange }) => (
@@ -26,6 +27,45 @@ const Screen3Settings = React.memo(({
   const priceInfo = usePrintPrice(printSettings, filePageCount);
   const [priceAnimate, setPriceAnimate] = useState(false);
   const prevTotal = useRef(priceInfo.total);
+
+  // ── Виртуальная цифровая клавиатура ──
+  // numpadTarget: 'rangeFrom' | 'rangeTo' | 'custom' | null
+  const [numpadTarget, setNumpadTarget] = useState(null);
+
+  const openNumpad = (target) => setNumpadTarget(target);
+  const closeNumpad = () => setNumpadTarget(null);
+
+  const handleNumKey = (ch) => {
+    if (numpadTarget === 'rangeFrom') {
+      setPrintSettings((prev) => {
+        const v = (prev.rangeFrom ?? '') + ch;
+        return { ...prev, rangeFrom: v, pageRange: v && prev.rangeTo ? `${v}-${prev.rangeTo}` : prev.pageRange };
+      });
+    } else if (numpadTarget === 'rangeTo') {
+      setPrintSettings((prev) => {
+        const v = (prev.rangeTo ?? '') + ch;
+        return { ...prev, rangeTo: v, pageRange: prev.rangeFrom && v ? `${prev.rangeFrom}-${v}` : prev.pageRange };
+      });
+    } else if (numpadTarget === 'custom') {
+      setPrintSettings((prev) => ({ ...prev, pageRange: (prev.pageRange ?? '') + ch }));
+    }
+  };
+
+  const handleNumBackspace = () => {
+    if (numpadTarget === 'rangeFrom') {
+      setPrintSettings((prev) => {
+        const v = (prev.rangeFrom ?? '').slice(0, -1);
+        return { ...prev, rangeFrom: v, pageRange: v && prev.rangeTo ? `${v}-${prev.rangeTo}` : prev.pageRange };
+      });
+    } else if (numpadTarget === 'rangeTo') {
+      setPrintSettings((prev) => {
+        const v = (prev.rangeTo ?? '').slice(0, -1);
+        return { ...prev, rangeTo: v, pageRange: prev.rangeFrom && v ? `${prev.rangeFrom}-${v}` : prev.pageRange };
+      });
+    } else if (numpadTarget === 'custom') {
+      setPrintSettings((prev) => ({ ...prev, pageRange: (prev.pageRange ?? '').slice(0, -1) }));
+    }
+  };
 
   useEffect(() => {
     if (priceInfo.total !== prevTotal.current) {
@@ -138,51 +178,107 @@ const Screen3Settings = React.memo(({
             ))}
           </div>
           {printSettings.pages === 'range' && (
-            <div className="flex gap-3 mt-3 items-center">
-              <label className="text-[16px] text-dark-blue">{t('screen3.rangeFrom')}</label>
-              <input
-                type="number"
-                min="1"
-                max={filePageCount}
-                className="w-20 h-14 border border-[#E2E8F0] rounded-[10px] text-center text-[17px] focus:outline-none focus:border-primary"
-                value={printSettings.rangeFrom ?? ''}
-                onChange={(e) => {
-                  const v = e.target.value;
-                  setPrintSettings((prev) => ({
-                    ...prev,
-                    rangeFrom: v,
-                    pageRange: v && prev.rangeTo ? `${v}-${prev.rangeTo}` : prev.pageRange,
-                  }));
-                }}
-                data-testid="range-from"
-              />
-              <label className="text-[16px] text-dark-blue">{t('screen3.rangeTo')}</label>
-              <input
-                type="number"
-                min="1"
-                max={filePageCount}
-                className="w-20 h-14 border border-[#E2E8F0] rounded-[10px] text-center text-[17px] focus:outline-none focus:border-primary"
-                value={printSettings.rangeTo ?? ''}
-                onChange={(e) => {
-                  const v = e.target.value;
-                  setPrintSettings((prev) => ({
-                    ...prev,
-                    rangeTo: v,
-                    pageRange: prev.rangeFrom && v ? `${prev.rangeFrom}-${v}` : prev.pageRange,
-                  }));
-                }}
-                data-testid="range-to"
-              />
+            <div className="flex gap-4 mt-3 items-center">
+              {/* ── От ── */}
+              <label className="text-[16px] text-dark-blue font-medium">{t('screen3.rangeFrom')}</label>
+              <div className="flex items-center gap-1.5">
+                <button
+                  className={`w-[48px] h-[48px] border rounded-[10px] text-[24px] text-[#64748B] flex items-center justify-center transition-colors
+                    ${Number(printSettings.rangeFrom) <= 1 ? 'opacity-30 cursor-not-allowed' : 'border-[#E2E8F0] hover:border-primary active:bg-[#EFF6FF]'}`}
+                  onClick={() => {
+                    const cur = Number(printSettings.rangeFrom) || 1;
+                    if (cur > 1) {
+                      const v = String(cur - 1);
+                      setPrintSettings((prev) => ({ ...prev, rangeFrom: v, pageRange: v && prev.rangeTo ? `${v}-${prev.rangeTo}` : prev.pageRange }));
+                    }
+                  }}
+                  disabled={Number(printSettings.rangeFrom) <= 1}
+                  data-testid="range-from-minus"
+                >−</button>
+                <input
+                  type="text"
+                  inputMode="none"
+                  className={`w-[72px] h-[48px] border rounded-[10px] text-center text-[20px] font-semibold focus:outline-none cursor-pointer transition-colors ${
+                    numpadTarget === 'rangeFrom' ? 'border-primary bg-[#EFF6FF] shadow-md shadow-primary/10' : 'border-[#E2E8F0] focus:border-primary'
+                  }`}
+                  value={printSettings.rangeFrom ?? ''}
+                  readOnly
+                  onFocus={() => openNumpad('rangeFrom')}
+                  onClick={() => openNumpad('rangeFrom')}
+                  data-testid="range-from"
+                />
+                <button
+                  className={`w-[48px] h-[48px] border rounded-[10px] text-[24px] text-[#64748B] flex items-center justify-center transition-colors
+                    ${Number(printSettings.rangeFrom) >= filePageCount ? 'opacity-30 cursor-not-allowed' : 'border-[#E2E8F0] hover:border-primary active:bg-[#EFF6FF]'}`}
+                  onClick={() => {
+                    const cur = Number(printSettings.rangeFrom) || 0;
+                    if (cur < filePageCount) {
+                      const v = String(cur + 1);
+                      setPrintSettings((prev) => ({ ...prev, rangeFrom: v, pageRange: v && prev.rangeTo ? `${v}-${prev.rangeTo}` : prev.pageRange }));
+                    }
+                  }}
+                  disabled={Number(printSettings.rangeFrom) >= filePageCount}
+                  data-testid="range-from-plus"
+                >+</button>
+              </div>
+
+              {/* ── До ── */}
+              <label className="text-[16px] text-dark-blue font-medium">{t('screen3.rangeTo')}</label>
+              <div className="flex items-center gap-1.5">
+                <button
+                  className={`w-[48px] h-[48px] border rounded-[10px] text-[24px] text-[#64748B] flex items-center justify-center transition-colors
+                    ${Number(printSettings.rangeTo) <= 1 ? 'opacity-30 cursor-not-allowed' : 'border-[#E2E8F0] hover:border-primary active:bg-[#EFF6FF]'}`}
+                  onClick={() => {
+                    const cur = Number(printSettings.rangeTo) || 1;
+                    if (cur > 1) {
+                      const v = String(cur - 1);
+                      setPrintSettings((prev) => ({ ...prev, rangeTo: v, pageRange: prev.rangeFrom && v ? `${prev.rangeFrom}-${v}` : prev.pageRange }));
+                    }
+                  }}
+                  disabled={Number(printSettings.rangeTo) <= 1}
+                  data-testid="range-to-minus"
+                >−</button>
+                <input
+                  type="text"
+                  inputMode="none"
+                  className={`w-[72px] h-[48px] border rounded-[10px] text-center text-[20px] font-semibold focus:outline-none cursor-pointer transition-colors ${
+                    numpadTarget === 'rangeTo' ? 'border-primary bg-[#EFF6FF] shadow-md shadow-primary/10' : 'border-[#E2E8F0] focus:border-primary'
+                  }`}
+                  value={printSettings.rangeTo ?? ''}
+                  readOnly
+                  onFocus={() => openNumpad('rangeTo')}
+                  onClick={() => openNumpad('rangeTo')}
+                  data-testid="range-to"
+                />
+                <button
+                  className={`w-[48px] h-[48px] border rounded-[10px] text-[24px] text-[#64748B] flex items-center justify-center transition-colors
+                    ${Number(printSettings.rangeTo) >= filePageCount ? 'opacity-30 cursor-not-allowed' : 'border-[#E2E8F0] hover:border-primary active:bg-[#EFF6FF]'}`}
+                  onClick={() => {
+                    const cur = Number(printSettings.rangeTo) || 0;
+                    if (cur < filePageCount) {
+                      const v = String(cur + 1);
+                      setPrintSettings((prev) => ({ ...prev, rangeTo: v, pageRange: prev.rangeFrom && v ? `${prev.rangeFrom}-${v}` : prev.pageRange }));
+                    }
+                  }}
+                  disabled={Number(printSettings.rangeTo) >= filePageCount}
+                  data-testid="range-to-plus"
+                >+</button>
+              </div>
             </div>
           )}
           {printSettings.pages === 'custom' && (
             <div className="mt-3">
               <input
                 type="text"
-                className="w-full h-14 border border-[#E2E8F0] rounded-[10px] px-3 text-[17px] focus:outline-none focus:border-primary"
+                inputMode="none"
+                className={`w-full h-14 border rounded-[10px] px-3 text-[17px] focus:outline-none cursor-pointer transition-colors ${
+                  numpadTarget === 'custom' ? 'border-primary bg-[#EFF6FF] shadow-md shadow-primary/10' : 'border-[#E2E8F0] focus:border-primary'
+                }`}
                 placeholder={`1, 3, 4-7, ${filePageCount}`}
                 value={printSettings.pageRange}
-                onChange={e => update('pageRange', e.target.value)}
+                readOnly
+                onFocus={() => openNumpad('custom')}
+                onClick={() => openNumpad('custom')}
                 data-testid="custom-pages-input"
               />
               <div className="mt-2 bg-primary-light border-l-[3px] border-primary rounded-r-lg p-3.5">
@@ -256,6 +352,18 @@ const Screen3Settings = React.memo(({
         </div>
 
         </div>{/* end scrollable settings */}
+
+        {/* ── Виртуальная цифровая клавиатура ── */}
+        {numpadTarget && (
+          <div className="flex-shrink-0 px-4 pb-2" style={{ height: 280 }}>
+            <NumericKeyboard
+              onKey={handleNumKey}
+              onBackspace={handleNumBackspace}
+              onClose={closeNumpad}
+              onSubmit={closeNumpad}
+            />
+          </div>
+        )}
 
         {/* Bottom buttons — always visible */}
         <div className="flex-shrink-0 px-8 pb-8 pt-5 flex gap-3 border-t border-[#E2E8F0]">

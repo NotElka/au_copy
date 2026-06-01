@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import * as pdfjs from 'pdfjs-dist/build/pdf.mjs';
+import workerUrl from 'pdfjs-dist/build/pdf.worker.mjs?url';
 import { formatBytes } from '../../utils/api';
+
+pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
 import OrientedPreview from '../OrientedPreview';
 import { useT } from '../../i18n/LanguageProvider';
 
@@ -29,6 +33,21 @@ const Screen2Preview = React.memo(({ file, orientation, setOrientation, onNext, 
   const downloadUrl = file?.downloadUrl || '';
   const isPortrait = orientation === 'portrait';
 
+  const [pdfDoc, setPdfDoc] = useState(null);
+  const totalPages = file?.pageCount || 1;
+
+  // Загружаем PDF документ один раз
+  useEffect(() => {
+    let task = null;
+    if (isPdf && downloadUrl) {
+      task = pdfjs.getDocument({ url: downloadUrl });
+      task.promise.then(setPdfDoc).catch(console.error);
+    }
+    return () => {
+      if (task) task.destroy();
+    };
+  }, [isPdf, downloadUrl]);
+
   return (
     <div className="flex min-h-full">
       {/* LEFT — File Viewer (extra wide for visibility) */}
@@ -50,14 +69,38 @@ const Screen2Preview = React.memo(({ file, orientation, setOrientation, onNext, 
           </div>
         </div>
 
-        {/* Preview area — увеличен внутренний паддинг для крупного отображения */}
-        <div className="flex-1 min-h-0 flex items-center justify-center p-8">
+        {/* Scrollable Preview area */}
+        <div className="flex-1 min-h-0 overflow-y-auto p-6 flex flex-col items-center gap-8" style={{ scrollbarWidth: 'thin' }}>
           {(isPdf || isImage) && downloadUrl ? (
-            <OrientedPreview
-              pdfUrl={isPdf ? downloadUrl : null}
-              imageUrl={isImage ? downloadUrl : null}
-              orientation={orientation}
-            />
+            <>
+              {isImage ? (
+                <div className="w-full max-w-[80%] flex justify-center">
+                  <OrientedPreview
+                    imageUrl={downloadUrl}
+                    orientation={orientation}
+                    className="w-full"
+                  />
+                </div>
+              ) : isPdf && pdfDoc ? (
+                Array.from({ length: totalPages }).map((_, i) => (
+                  <div key={i} className="w-full max-w-[70%] flex flex-col items-center gap-3">
+                    <OrientedPreview
+                      pdfDoc={pdfDoc}
+                      orientation={orientation}
+                      pageNumber={i + 1}
+                      className="w-full"
+                    />
+                    <span className="text-white/50 text-[14px] font-semibold tracking-wider">
+                      {i + 1}
+                    </span>
+                  </div>
+                ))
+              ) : isPdf && !pdfDoc ? (
+                <div className="flex items-center justify-center h-full">
+                  <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                </div>
+              ) : null}
+            </>
           ) : (
             <div
               className="bg-white rounded-[4px] shadow-2xl flex flex-col items-center justify-center p-8 gap-4"

@@ -13,6 +13,7 @@ from .config import (
     MAX_FILE_SIZE,
     UPLOAD_TOKEN,
 )
+from .kaspi_pos import KaspiError, payment_service
 from .kiosk_state import state as kiosk_state
 from .pdf_pages import count_pdf_pages
 from .print_job import PrintError, PrintRequest, run_print_job
@@ -151,6 +152,56 @@ async def print_file(code: str, req: PrintRequest) -> JSONResponse:
         settings=req.model_dump(),
     )
     return JSONResponse({"ok": True, **result})
+
+
+# ── Оплата через Kaspi Smart POS ───────────────────────────────────────
+
+@app.get("/api/kaspi/health")
+async def kaspi_health() -> JSONResponse:
+    """Доступен ли терминал (для Screen4). Не падает при офлайне."""
+    try:
+        info = await payment_service.pos.device_info()
+        return JSONResponse({"ok": True, "terminalId": info.get("terminalId")})
+    except KaspiError as exc:
+        return JSONResponse({"ok": False, "error": str(exc)})
+
+
+@app.post("/api/kaspi/pay")
+async def kaspi_pay(body: dict) -> JSONResponse:
+    """Старт оплаты по коду. Сумму считает сервер по настройкам печати —
+    присланной фронтом сумме не доверяем. Идемпотентно (один код = один платёж)."""
+    code = (body.get("code") or "").strip()
+    session = await store.get(code)
+    if session is None:
+        raise HTTPException(status_code=404, detail="session not found or expired")
+    settings = body.get("settings") or {}
+    try:
+        payment = await payment_service.start(session.code, session.page_count, settings)
+    except KaspiError as exc:
+        return JSONResponse({"ok": False, "error": str(exc)})
+    return JSONResponse({
+        "ok": True,
+        "processId": payment.process_id,
+        "amount": payment.amount,
+        "status": payment.status,
+    })
+
+
+@app.get("/api/kaspi/status/{process_id}")
+async def kaspi_status(process_id: str) -> JSONResponse:
+    """Опрос статуса (фронт зовёт ~1 раз/сек). При unknown сервер сам актуализирует."""
+    try:
+        payment = await payment_service.poll(process_id)
+    except KaspiError as exc:
+        raise HTTPException(status_code=404, detail=str(exc))
+    return JSONResponse({
+        "status": payment.status,
+        "subStatus": payment.sub_status,
+        "method": payment.method,
+        "message": payment.message,
+        "amount": payment.amount,
+        "paid": payment.paid,
+    })
 
 
 # ── Админские эндпойнты ────────────────────────────────────────────────

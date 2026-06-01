@@ -3,8 +3,8 @@
 
 export const LANGUAGES = [
   { code: 'ru', label: 'Русский', short: 'RU' },
-  { code: 'kk', label: 'Қазақша',  short: 'KZ' },
-  { code: 'en', label: 'English',  short: 'EN' },
+  { code: 'kk', label: 'Қазақша', short: 'KZ' },
+  { code: 'en', label: 'English', short: 'EN' },
 ];
 
 export const DICT = {
@@ -38,6 +38,7 @@ export const DICT = {
       step2Title: 'Введите код из бота',
       step2Hint: 'Код из чата · действует 30 минут',
       openDocument: 'Открыть документ',
+      codePlaceholder: 'Нажмите чтобы ввести код',
     },
     screen2: {
       fileInfo: 'Информация о файле',
@@ -212,6 +213,7 @@ export const DICT = {
       step2Title: 'Боттан кодты енгізіңіз',
       step2Hint: 'Чаттан код · 30 минут жарамды',
       openDocument: 'Құжатты ашу',
+      codePlaceholder: 'Кодты енгізу үшін басыңыз',
     },
     screen2: {
       fileInfo: 'Файл туралы ақпарат',
@@ -386,6 +388,7 @@ export const DICT = {
       step2Title: 'Enter the code from the bot',
       step2Hint: 'Code from the chat · valid for 30 minutes',
       openDocument: 'Open document',
+      codePlaceholder: 'Tap to enter code',
     },
     screen2: {
       fileInfo: 'File information',

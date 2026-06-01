@@ -14,7 +14,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
  * Используется на Screen2 (превью документа целиком) и в качестве thumbnail
  * на других экранах.
  */
-const OrientedPreview = ({ pdfUrl, imageUrl, orientation, pageNumber = 1, className = '' }) => {
+const OrientedPreview = ({ pdfUrl, pdfDoc, imageUrl, orientation, pageNumber = 1, className = '' }) => {
   const [src, setSrc] = useState(null);
   const [error, setError] = useState(false);
   const containerRef = useRef(null);
@@ -26,8 +26,11 @@ const OrientedPreview = ({ pdfUrl, imageUrl, orientation, pageNumber = 1, classN
 
     const renderPdf = async () => {
       try {
-        const task = pdfjs.getDocument({ url: pdfUrl });
-        const pdf = await task.promise;
+        let pdf = pdfDoc;
+        if (!pdf) {
+          const task = pdfjs.getDocument({ url: pdfUrl });
+          pdf = await task.promise;
+        }
         if (cancelled) return;
         const page = await pdf.getPage(pageNumber);
         // Рендерим страницу В ЕЁ НАТИВНОЙ ориентации — поворота нет.
@@ -100,11 +103,11 @@ const OrientedPreview = ({ pdfUrl, imageUrl, orientation, pageNumber = 1, classN
       img.src = imageUrl;
     };
 
-    if (pdfUrl) renderPdf();
+    if (pdfUrl || pdfDoc) renderPdf();
     else if (imageUrl) renderImage();
 
     return () => { cancelled = true; };
-  }, [pdfUrl, imageUrl, orientation, pageNumber]);
+  }, [pdfUrl, pdfDoc, imageUrl, orientation, pageNumber]);
 
   const aspect = orientation === 'landscape' ? '297 / 210' : '210 / 297';
 

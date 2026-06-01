@@ -1,1 +1,4 @@
 .idea/
+
+# Секреты Kaspi Smart POS — токены доступа к терминалу (не коммитить)
+backend/kaspi_token.json

@@ -36,7 +36,7 @@ export async function printDocument(code, settings) {
     try {
       const body = await res.json();
       if (body && body.detail) msg = body.detail;
-    } catch (_) {}
+    } catch (_) { }
     throw new Error(msg);
   }
   return res.json();
@@ -50,6 +50,38 @@ export async function deleteSession(code) {
   } catch (_) {
     // best-effort
   }
+}
+
+// ── Оплата через Kaspi Smart POS ───────────────────────────────────────
+
+// Старт оплаты: сервер сам считает сумму по настройкам печати.
+// Ответ: { ok:true, processId, amount, status } | { ok:false, error }
+export async function startKaspiPayment(code, settings) {
+  const clean = String(code || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if (!clean) throw new Error('Нет кода сессии для оплаты');
+  const res = await fetch(`${API_BASE}/api/kaspi/pay`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code: clean, settings: settings || {} }),
+  });
+  if (!res.ok) {
+    let msg = `Не удалось начать оплату (${res.status})`;
+    try { const b = await res.json(); if (b && b.detail) msg = b.detail; } catch (_) { }
+    throw new Error(msg);
+  }
+  return res.json();
+}
+
+// Опрос статуса платежа (фронт зовёт раз в ~1.5 сек).
+// Ответ: { status, subStatus, method, message, amount, paid }
+export async function checkKaspiStatus(processId) {
+  const res = await fetch(`${API_BASE}/api/kaspi/status/${processId}`);
+  if (!res.ok) {
+    let msg = `Ошибка статуса оплаты (${res.status})`;
+    try { const b = await res.json(); if (b && b.detail) msg = b.detail; } catch (_) { }
+    throw new Error(msg);
+  }
+  return res.json();
 }
 
 export function formatBytes(bytes) {

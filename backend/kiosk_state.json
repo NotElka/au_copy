@@ -1,16 +1,121 @@
 {
   "paper": {
     "total": 500,
-    "remaining": 491,
+    "remaining": 480,
     "lastRefillAt": "2026-05-27T20:54:53",
     "warnBelow": 50,
     "blockBelow": 0
   },
   "jobs": {
     "today": 3,
-    "todayDate": "2026-05-27",
-    "total": 24,
+    "todayDate": "2026-05-31",
+    "total": 31,
     "recent": [
+      {
+        "at": "2026-05-31T18:01:04",
+        "sheets": 1,
+        "mode": "printer",
+        "file": "Vectors_Part_1 (3).pdf",
+        "settings": {
+          "pages": "range",
+          "pageRange": "1-2",
+          "copies": 1,
+          "pagesPerSide": 2,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-31T17:23:12",
+        "sheets": 1,
+        "mode": "printer",
+        "file": "Practical_9_PMF_PDF_CDF(Questions) (1).pdf",
+        "settings": {
+          "pages": "range",
+          "pageRange": "1-1",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-31T15:43:40",
+        "sheets": 4,
+        "mode": "printer",
+        "file": "1-variant (25 question).pdf",
+        "settings": {
+          "pages": "custom",
+          "pageRange": "1,3",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-30T19:22:00",
+        "sheets": 2,
+        "mode": "printer",
+        "file": "Vector_part1_Questions (1).pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-30T19:15:39",
+        "sheets": 2,
+        "mode": "printer",
+        "file": "Vector_part1_Questions (1).pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-30T19:14:47",
+        "sheets": 1,
+        "mode": "printer",
+        "file": "OS.pdf",
+        "settings": {
+          "pages": "range",
+          "pageRange": "1-1",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-05-29T21:21:47",
+        "sheets": 0,
+        "mode": "error",
+        "file": "kursiv-media-kit-2025-1.pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "1-2",
+          "copies": 5,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "portrait"
+        },
+        "error": "Принтер «EPSON M3180 Series» не ответил за 30 с. Возможно, требует ручного диалога (например Microsoft Print to PDF)."
+      },
       {
         "at": "2026-05-27T21:04:26",
         "sheets": 9,
@@ -375,6 +480,13 @@
   },
   "errors": [
     {
+      "at": "2026-05-29T21:21:47",
+      "message": "Принтер «EPSON M3180 Series» не ответил за 30 с. Возможно, требует ручного диалога (например Microsoft Print to PDF).",
+      "context": {
+        "code": "AST8AL"
+      }
+    },
+    {
       "at": "2026-05-27T20:49:06",
       "message": "Принтер «EPSON M3180 Series» не ответил за 30 с. Возможно, требует ручного диалога (например Microsoft Print to PDF).",
       "context": {
@@ -446,7 +558,7 @@
     }
   ],
   "startedAt": "2026-05-23T00:22:28",
-  "lastJobAt": "2026-05-27T21:04:26",
+  "lastJobAt": "2026-05-31T18:01:04",
   "reports": [
     {
       "id": 1779483545340,

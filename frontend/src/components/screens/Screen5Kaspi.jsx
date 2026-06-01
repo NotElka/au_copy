@@ -1,47 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { usePrintPrice } from '../../hooks/usePrintPrice';
+import { useKaspiPayment } from '../../hooks/useKaspiPayment';
 
-const QRMock = () => (
-  <svg width="180" height="180" viewBox="0 0 180 180" fill="none">
-    {[0,1,2,3,4,5,6].map(row =>
-      [0,1,2,3,4,5,6].map(col => {
-        const isCorner = (row < 2 && col < 2) || (row < 2 && col > 4) || (row > 4 && col < 2);
-        const isDot = (row + col) % 3 === 0 || isCorner;
-        return isDot ? (
-          <rect key={`${row}-${col}`} x={10 + col * 24} y={10 + row * 24} width="20" height="20" rx="3" fill="#1E3A5F"/>
-        ) : null;
-      })
+const FALLBACK_SETTINGS = { pages: 'all', pageRange: '', copies: 1, pagesPerSide: 1, duplex: false };
+
+// Иконка терминала (QR теперь показывается НА терминале, а не на киоске).
+const TerminalIcon = ({ pulse }) => (
+  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className={pulse ? 'animate-pulse' : ''}>
+    <rect x="30" y="10" width="60" height="100" rx="10" fill="#1E3A5F" />
+    <rect x="37" y="20" width="46" height="34" rx="4" fill="#FFFFFF" />
+    {/* мини-QR на экранчике терминала */}
+    {[0, 1, 2, 3].map((r) =>
+      [0, 1, 2, 3].map((c) =>
+        (r + c) % 2 === 0 ? (
+          <rect key={`${r}-${c}`} x={42 + c * 9} y={25 + r * 6} width="6" height="4" rx="1" fill="#1E3A5F" />
+        ) : null
+      )
     )}
+    <circle cx="60" cy="78" r="12" fill="#E11D48" />
+    <path d="M55 78l3.5 3.5L66 74" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
-const Screen5Kaspi = React.memo(({ onSuccess, printSettings, filePageCount = 1 }) => {
-  const priceInfo = usePrintPrice(printSettings || { pages: 'all', pageRange: '', copies: 1, pagesPerSide: 1, duplex: false }, filePageCount);
-  const [seconds, setSeconds] = useState(300);
+const Spinner = () => (
+  <svg className="animate-spin" width="100" height="100" viewBox="0 0 50 50">
+    <circle cx="25" cy="25" r="20" fill="none" stroke="#FDE2E7" strokeWidth="5" />
+    <path d="M25 5a20 20 0 0 1 20 20" fill="none" stroke="#E11D48" strokeWidth="5" strokeLinecap="round" />
+  </svg>
+);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds(s => {
-        if (s <= 0) { clearInterval(interval); return 0; }
-        return s - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+const Screen5Kaspi = React.memo(({ onSuccess, printSettings, filePageCount = 1, sessionCode }) => {
+  const priceInfo = usePrintPrice(printSettings || FALLBACK_SETTINGS, filePageCount);
+  const { phase, amount, message, retry } = useKaspiPayment(sessionCode, printSettings, onSuccess);
+  const total = amount != null ? amount : priceInfo.total;
 
-  const mins = Math.floor(seconds / 60);
-  const secs = seconds % 60;
-  const timeStr = `${mins}:${secs.toString().padStart(2, '0')}`;
+  // phase → крупный статус справа
+  const view = {
+    starting: { icon: <Spinner />, title: 'Готовим оплату…', sub: 'Подождите пару секунд' },
+    waiting: { icon: <TerminalIcon pulse />, title: 'Отсканируйте QR на терминале', sub: 'Откройте Kaspi.kz → «Платёжный QR» и наведите камеру на экран терминала' },
+    processing: { icon: <Spinner />, title: 'Подтвердите оплату в приложении', sub: 'Нажмите «Оплатить» в Kaspi.kz и дождитесь подтверждения' },
+    unknown: { icon: <Spinner />, title: 'Проверяем статус оплаты…', sub: message || 'Не оплачивайте повторно' },
+    success: { icon: <TerminalIcon />, title: 'Оплата получена!', sub: 'Переходим к печати…' },
+    fail: { icon: null, title: 'Оплата не прошла', sub: message || 'Попробуйте ещё раз' },
+    error: { icon: null, title: 'Оплата сейчас недоступна', sub: 'Попробуйте ещё раз или обратитесь к персоналу' },
+  }[phase] || { icon: <Spinner />, title: '…', sub: '' };
 
-  const handleRefresh = () => {
-    setSeconds(300);
-    console.log('[Screen5Kaspi] QR refreshed');
-  };
-
-  const handleQRClick = () => {
-    console.log('[Screen5Kaspi] Payment completed (mock)');
-    onSuccess();
-  };
+  const isErrorPhase = phase === 'fail' || phase === 'error';
 
   return (
     <div className="flex h-full">
@@ -54,9 +58,9 @@ const Screen5Kaspi = React.memo(({ onSuccess, printSettings, filePageCount = 1 }
 
         <div className="mt-8 flex flex-col gap-5">
           {[
-            'Откройте приложение Kaspi.kz на вашем телефоне',
-            'Нажмите кнопку «Платёжный QR» в главном меню',
-            'Наведите камеру на QR-код справа',
+            'Откройте приложение Kaspi.kz на телефоне',
+            'Нажмите «Платёжный QR» в главном меню',
+            'Наведите камеру на QR-код на экране терминала',
             'Проверьте сумму и получателя — AU Copy',
             'Нажмите «Оплатить» и дождитесь подтверждения',
           ].map((step, i) => (
@@ -71,56 +75,46 @@ const Screen5Kaspi = React.memo(({ onSuccess, printSettings, filePageCount = 1 }
 
         <div className="mt-7 bg-kaspi-light border-l-[3px] border-kaspi-red rounded-r-lg p-4">
           <p className="text-[15px] text-[#991B1B] leading-relaxed">
-            QR-код действителен 5 минут. Если время истекло — нажмите кнопку «Обновить QR»
+            Карту тоже можно приложить прямо к терминалу — он принимает и QR, и карты.
           </p>
-        </div>
-
-        <div className="mt-5 inline-flex items-center gap-2 bg-kaspi-red text-white px-6 py-3 rounded-2xl text-[19px] font-semibold self-start">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-            <circle cx="10" cy="10" r="8" stroke="white" strokeWidth="1.5"/>
-            <path d="M10 6v4l3 2" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-          </svg>
-          Осталось {timeStr}
         </div>
       </div>
 
-      {/* RIGHT — QR Code */}
+      {/* RIGHT — Live status from terminal */}
       <div className="w-1/2 flex flex-col items-center justify-center p-10 bg-[#FAFBFF]">
-        <div
-          className="border-2 border-kaspi-red rounded-3xl p-8 bg-white flex flex-col items-center gap-4 cursor-pointer"
-          onClick={handleQRClick}
-          title="Нажмите для симуляции оплаты (MOCK)"
-        >
-          {/* Kaspi header */}
+        <div className="border-2 border-kaspi-red rounded-3xl p-10 bg-white flex flex-col items-center gap-5 w-[360px] min-h-[420px] justify-center text-center">
           <div className="flex items-center gap-2.5">
-            <img src="/photos/kaspi.png" alt="Kaspi" className="w-10 h-10 object-contain" />
-            <span className="text-[28px] font-bold text-kaspi-red tracking-tight">Kaspi</span>
+            <img src="/photos/kaspi.png" alt="Kaspi" className="w-9 h-9 object-contain" />
+            <span className="text-[26px] font-bold text-kaspi-red tracking-tight">Kaspi</span>
+          </div>
+
+          <div className="flex items-center justify-center h-[130px]">
+            {view.icon || (
+              <div className="w-[100px] h-[100px] rounded-full bg-[#FEE2E2] flex items-center justify-center text-[48px] text-kaspi-red">!</div>
+            )}
+          </div>
+
+          <div>
+            <p className="text-[22px] font-bold text-dark-blue leading-snug">{view.title}</p>
+            <p className="text-[15px] text-muted mt-2 leading-relaxed">{view.sub}</p>
           </div>
 
           <div className="h-px bg-[#F1F5F9] w-full" />
-
-          {/* QR */}
-          <div className="w-[220px] h-[220px] bg-[#F8FAFF] border border-[#E2E8F0] rounded-[14px] flex items-center justify-center">
-            <QRMock />
-          </div>
-          {/* MOCK: replace with real QR from backend */}
-
-          <div className="text-center">
-            <p className="text-[15px] text-muted">Сумма к оплате</p>
-            <p className="text-[38px] font-bold text-kaspi-red leading-tight">{priceInfo.total} ₸</p>
+          <div>
+            <p className="text-[14px] text-muted">Сумма к оплате</p>
+            <p className="text-[34px] font-bold text-kaspi-red leading-tight">{total} ₸</p>
           </div>
 
-          <div className="h-px bg-[#F1F5F9] w-full" />
-          <span className="text-[15px] text-muted">Получатель: <span className="font-semibold text-dark-blue">AU Copy</span></span>
+          {isErrorPhase && (
+            <button
+              className="mt-1 bg-kaspi-red text-white h-12 rounded-[12px] w-full text-[17px] font-semibold active:scale-[0.99]"
+              onClick={retry}
+              data-testid="kaspi-retry"
+            >
+              Попробовать снова
+            </button>
+          )}
         </div>
-
-        <button
-          className="mt-4 border border-[1.5px] border-kaspi-red text-kaspi-red bg-white h-11 rounded-[10px] w-[220px] text-[16px] font-medium hover:bg-kaspi-light transition-colors duration-150"
-          onClick={handleRefresh}
-          data-testid="refresh-qr"
-        >
-          ↻ Обновить QR
-        </button>
       </div>
     </div>
   );

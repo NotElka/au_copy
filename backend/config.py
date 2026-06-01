@@ -42,4 +42,20 @@ GS_PATH      = os.environ.get("AU_GS_PATH", r"C:\Program Files\gs\gs10.07.1\bin\
 import os as _os
 if not _os.path.exists(GS_PATH):
     GS_PATH = r"C:\Program Files\gs\gs10.07.1\bin\gswin64c.exe"
-PRINTER_NAME = os.environ.get("AU_PRINTER", "EPSON M3180 Series")
+PRINTER_NAME = os.environ.get("AU_PRINTER", "Samsung ML-1660 Series")
+
+# --- Цена печати ---
+# Серверная истина для расчёта суммы оплаты (фронту не доверяем).
+# Должна совпадать с PRICE_PER_SHEET во фронте (frontend/src/hooks/usePrintPrice.js).
+PRICE_PER_SHEET = int(os.environ.get("AU_PRICE_PER_SHEET", "24"))
+
+# --- Kaspi Smart POS (физический терминал в локальной сети) ---
+# Документация: Smart-POS-Dokymentatsia-po-integratsii.pdf (в корне проекта).
+#   AU_KASPI_POS_IP     — статический IP терминала в той же сети (порт 8080).
+#   AU_KASPI_POS_NAME   — имя кассы; задаётся один раз при регистрации и НЕ меняется.
+#   AU_KASPI_OWN_CHEQUE — "1" = чек обрабатывает касса (терминал НЕ печатает);
+#                         "0" = чек об оплате печатает сам терминал (по умолчанию).
+KASPI_POS_IP     = os.environ.get("AU_KASPI_POS_IP", "192.168.1.116")
+KASPI_POS_PORT   = int(os.environ.get("AU_KASPI_POS_PORT", "8080"))
+KASPI_POS_NAME   = os.environ.get("AU_KASPI_POS_NAME", "AuCopy")
+KASPI_OWN_CHEQUE = os.environ.get("AU_KASPI_OWN_CHEQUE", "0") == "1"

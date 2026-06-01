@@ -42,12 +42,12 @@ function App() {
   const [session, setSession] = useState(null);
   const uploadedFile = session
     ? {
-        name: session.fileName,
-        pageCount: session.pageCount || null,
-        size: session.size,
-        mimeType: session.mimeType,
-        downloadUrl: session.downloadUrl,
-      }
+      name: session.fileName,
+      pageCount: session.pageCount || null,
+      size: session.size,
+      mimeType: session.mimeType,
+      downloadUrl: session.downloadUrl,
+    }
     : { name: '—', pageCount: null, size: 0, mimeType: '', downloadUrl: '' };
   const [orientation, setOrientation] = useState('portrait');
   const [printSettings, setPrintSettings] = useState({
@@ -125,8 +125,8 @@ function App() {
         );
       case 5:
         return paymentMethod === 'kaspi'
-          ? <Screen5Kaspi printSettings={printSettings} filePageCount={uploadedFile.pageCount || 1} onSuccess={() => goTo(6)} />
-          : <Screen5Card printSettings={printSettings} filePageCount={uploadedFile.pageCount || 1} onSuccess={() => goTo(6)} />;
+          ? <Screen5Kaspi printSettings={printSettings} filePageCount={uploadedFile.pageCount || 1} sessionCode={session?.code} onSuccess={() => goTo(6)} />
+          : <Screen5Card printSettings={printSettings} filePageCount={uploadedFile.pageCount || 1} sessionCode={session?.code} onSuccess={() => goTo(6)} />;
       case 6:
         return <Screen6Success printSettings={printSettings} sessionCode={session?.code} file={uploadedFile} orientation={orientation} onRestart={handleRestart} />;
       default:
