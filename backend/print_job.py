@@ -239,10 +239,14 @@ def _is_dialog_printer() -> bool:
     return name in ("", "microsoft print to pdf", "microsoft xps document writer")
 
 
-async def _send_to_printer(pdf: Path, copies: int, duplex: bool) -> None:
+async def _send_to_printer(pdf: Path, copies: int, duplex: bool, orientation: str = "portrait") -> None:
     gs = _resolve_gs()
     args = [
         gs, "-dBATCH", "-dNOPAUSE", "-dSAFER",
+        # DEMO: -dNoCancel подавляет системное окно Windows «Printing» (диалог
+        # прогресса/отмены, которое mswinpr2 показывает при каждой печати).
+        # Чтобы вернуть окно — убрать "-dNoCancel".
+        "-dNoCancel",
         "-sDEVICE=mswinpr2",
         f"-sOutputFile=%printer%{PRINTER_NAME}",
     ]
@@ -250,7 +254,15 @@ async def _send_to_printer(pdf: Path, copies: int, duplex: bool) -> None:
         args.append(f"-dNumCopies={copies}")
     if duplex:
         args += ["-dDuplex=true", "-dTumble=false"]
-    args.append(str(pdf))
+    # Альбомная ориентация: страница уже собрана в альбомном размере (842×595).
+    # Говорим принтеру через DEVMODE использовать альбомный лист (Orientation 1 =
+    # landscape) — это то же, что ручная команда gs с setpagedevice. Тогда широкая
+    # страница печатается 1:1. Без флага mswinpr2 печатает на книжном листе и сам
+    # крутит/ужимает широкую страницу под книжный формат — это и был баг.
+    if orientation == "landscape":
+        args += ["-c", "<</Orientation 1>> setpagedevice", "-f", str(pdf)]
+    else:
+        args.append(str(pdf))
 
     log.info("gs cmd: %s", " ".join(args))
     # На Windows скрываем консольное окно gswin64c.exe (иначе при каждой печати
@@ -337,7 +349,7 @@ async def run_print_job(file_path: Path, req: PrintRequest) -> dict:
         if _is_dialog_printer():
             out = await _save_as_file(prepared, req.copies)
             return {"sheets": sheets, "mode": "file", "output": str(out)}
-        await _send_to_printer(prepared, req.copies, req.duplex)
+        await _send_to_printer(prepared, req.copies, req.duplex, req.orientation)
         return {"sheets": sheets, "mode": "printer", "output": None}
     finally:
         # Чистим все временные файлы

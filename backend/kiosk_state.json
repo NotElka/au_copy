@@ -1,16 +1,61 @@
 {
   "paper": {
     "total": 500,
-    "remaining": 479,
+    "remaining": 476,
     "lastRefillAt": "2026-05-27T20:54:53",
     "warnBelow": 50,
     "blockBelow": 0
   },
   "jobs": {
-    "today": 1,
-    "todayDate": "2026-06-03",
-    "total": 33,
+    "today": 3,
+    "todayDate": "2026-06-06",
+    "total": 36,
     "recent": [
+      {
+        "at": "2026-06-06T12:43:54",
+        "sheets": 1,
+        "mode": "printer",
+        "file": "Обходной_Әлем_тілдері_факультеті.pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "landscape"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-06-06T12:33:51",
+        "sheets": 1,
+        "mode": "printer",
+        "file": "Обходной_Әлем_тілдері_факультеті.pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "landscape"
+        },
+        "error": null
+      },
+      {
+        "at": "2026-06-06T12:21:16",
+        "sheets": 1,
+        "mode": "printer",
+        "file": "Обходной_Әлем_тілдері_факультеті.pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "landscape"
+        },
+        "error": null
+      },
       {
         "at": "2026-06-03T18:52:32",
         "sheets": 1,
@@ -588,7 +633,7 @@
     }
   ],
   "startedAt": "2026-05-23T00:22:28",
-  "lastJobAt": "2026-06-03T18:52:32",
+  "lastJobAt": "2026-06-06T12:43:54",
   "reports": [
     {
       "id": 1779483545340,

@@ -15,8 +15,6 @@ const AD_MEDIA = [
   // { type: 'image', src: '/ads/ad1.jpg' },
   // { type: 'image', src: '/ads/ad2.jpg' },
   // { type: 'video', src: '/ads/promo.mp4' },
-  {type: 'image', src: '/ads/Picture1.png'},
-  {type: 'image', src: '/ads/Picture2.png'}
 ];
 
 const SLIDE_INTERVAL_MS = 6000; // как долго висит одна картинка
