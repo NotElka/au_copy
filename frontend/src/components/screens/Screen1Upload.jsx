@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { fetchSession } from '../../utils/api';
 import VirtualKeyboard from '../VirtualKeyboard';
+import AdPanel from '../AdPanel';
 import { useT } from '../../i18n/LanguageProvider';
 
 const CODE_MAX_LEN = 6;
@@ -73,15 +74,8 @@ const Screen1Upload = React.memo(({ onNext, onSessionLoaded }) => {
     <div className="flex min-h-full bg-[#F8FAFC]">
       {/* ── LEFT — Ad / promo panel ── */}
       <div className="w-[34%] flex-shrink-0 bg-[#F0F6FF] border-r border-[#E2E8F0] flex items-start justify-center py-12">
-        <div className="w-[75%] min-h-[60vh] border-2 border-dashed border-[#BFCFE8] rounded-3xl flex flex-col items-center justify-center gap-4 px-6 py-8">
-          <div className="w-[60px] h-[60px] rounded-2xl bg-[#DBEAFE] flex items-center justify-center">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <rect x="1" y="4" width="26" height="20" rx="3" stroke="#60A5FA" strokeWidth="1.8"/>
-              <circle cx="9" cy="12" r="3" stroke="#60A5FA" strokeWidth="1.8"/>
-              <path d="M1 20l7-6 6 4.5 5-6 8 7.5" stroke="#60A5FA" strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round"/>
-            </svg>
-          </div>
-          <p className="text-[20px] text-[#94A3B8] font-semibold text-center leading-snug">{t('screen1.adPlaceholder')}</p>
+        <div className="w-[75%]">
+          <AdPanel />
         </div>
       </div>
 
@@ -174,7 +168,7 @@ const Screen1Upload = React.memo(({ onNext, onSessionLoaded }) => {
               <h2 className="text-[20px] font-bold text-dark-blue">{t('screen1.step2Title')}</h2>
             </div>
 
-            <p className="text-[14px] text-[#64748B] mb-3 ml-12">{t('screen1.step2Hint')}</p>
+            <p className="text-[14px] text-[#0F172A] mb-3 ml-12">{t('screen1.step2Hint')}</p>
             <input
               type="text"
               inputMode="none"

@@ -111,7 +111,7 @@ const Screen2Preview = React.memo(({ file, orientation, setOrientation, onNext, 
                 <path d="M14 3v6h6" stroke="#2563EB" strokeWidth="1.5"/>
               </svg>
               <p className="text-dark-blue text-[20px] font-semibold text-center px-4">{fileName}</p>
-              <p className="text-muted text-[15px] text-center px-6">{t('screen2.wordPreviewHint')}</p>
+              <p className="text-[#0F172A] text-[15px] text-center px-6">{t('screen2.wordPreviewHint')}</p>
             </div>
           )}
         </div>
@@ -160,7 +160,7 @@ const Screen2Preview = React.memo(({ file, orientation, setOrientation, onNext, 
               </button>
             ))}
           </div>
-          <p className="text-[12px] text-[#64748B] mt-2.5 px-1 leading-snug">
+          <p className="text-[12px] text-[#0F172A] mt-2.5 px-1 leading-snug">
             {isPortrait ? t('screen2.orientationHintPortrait') : t('screen2.orientationHintLandscape')}
           </p>
         </div>
@@ -175,7 +175,7 @@ const Screen2Preview = React.memo(({ file, orientation, setOrientation, onNext, 
           </div>
           <div>
             <p className="text-[13px] font-bold text-dark-blue">{t('screen2.previewTitle')}</p>
-            <p className="text-[12px] text-[#64748B] mt-0.5 leading-snug">
+            <p className="text-[12px] text-[#0F172A] mt-0.5 leading-snug">
               {t('screen2.previewHint')}
             </p>
           </div>

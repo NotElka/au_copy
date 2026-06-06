@@ -13,6 +13,7 @@ from .config import (
     MAX_FILE_SIZE,
     UPLOAD_TOKEN,
 )
+from .bundle import merge_to_single_pdf
 from .kaspi_pos import KaspiError, payment_service
 from .kiosk_state import state as kiosk_state
 from .pdf_pages import count_pdf_pages
@@ -116,6 +117,57 @@ async def upload(
         page_count=page_count,
     )
     return JSONResponse(session.to_public())
+
+
+@app.post("/api/upload-batch")
+async def upload_batch(
+    files: list[UploadFile] = File(...),
+    x_upload_token: str | None = Header(default=None, alias="X-Upload-Token"),
+) -> JSONResponse:
+    """Приём пачки файлов под один код: каждый файл приводится к PDF и всё
+    склеивается в один документ. Используется ботом в режиме /multi."""
+    if x_upload_token != UPLOAD_TOKEN:
+        raise HTTPException(status_code=401, detail="invalid upload token")
+    if not files:
+        raise HTTPException(status_code=400, detail="no files")
+
+    items: list[tuple[bytes, str]] = []
+    names: list[str] = []
+    for f in files:
+        original_name = (f.filename or "document").strip()
+        suffix = Path(original_name).suffix.lower()
+        if suffix not in ALLOWED_EXTENSIONS:
+            raise HTTPException(
+                status_code=400,
+                detail=f"unsupported extension '{suffix}' ({original_name})",
+            )
+        data = await f.read()
+        if len(data) == 0:
+            raise HTTPException(status_code=400, detail=f"empty file: {original_name}")
+        if len(data) > MAX_FILE_SIZE:
+            raise HTTPException(status_code=413, detail=f"file too large: {original_name}")
+        items.append((data, original_name))
+        names.append(original_name)
+
+    try:
+        merged_bytes, page_count = await merge_to_single_pdf(items)
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500, detail=f"не удалось собрать файлы в один PDF: {exc}"
+        )
+
+    display_name = names[0] if len(names) == 1 else f"{names[0]} + ещё {len(names) - 1}"
+
+    session = await store.create(
+        file_bytes=merged_bytes,
+        file_name=display_name,
+        mime_type="application/pdf",
+        page_count=page_count,
+        suffix=".pdf",
+    )
+    payload = session.to_public()
+    payload["fileCount"] = len(names)
+    return JSONResponse(payload)
 
 
 @app.get("/api/file/{code}")

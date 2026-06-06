@@ -194,7 +194,7 @@ const Screen6Success = React.memo(({ printSettings, sessionCode, file, orientati
           <p className="text-[16px] text-muted text-center">{t('screen6.remainingTime', { n: Math.ceil((100 - printProgress) / 100 * 8) })}</p>
         </div>
 
-        <p className="text-[17px] text-muted text-center mt-6">{t('screen6.pickupHint')}</p>
+        <p className="text-[17px] text-[#0F172A] text-center mt-6">{t('screen6.pickupHint')}</p>
         <PrivacyNotice text={t('screen6.privacy')} />
       </div>
     );

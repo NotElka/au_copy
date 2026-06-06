@@ -8,9 +8,24 @@
   },
   "jobs": {
     "today": 1,
-    "todayDate": "2026-06-01",
-    "total": 32,
+    "todayDate": "2026-06-03",
+    "total": 33,
     "recent": [
+      {
+        "at": "2026-06-03T18:52:32",
+        "sheets": 1,
+        "mode": "file",
+        "file": "Обходной_Әлем_тілдері_факультеті.pdf",
+        "settings": {
+          "pages": "all",
+          "pageRange": "",
+          "copies": 1,
+          "pagesPerSide": 1,
+          "duplex": false,
+          "orientation": "landscape"
+        },
+        "error": null
+      },
       {
         "at": "2026-06-01T17:16:52",
         "sheets": 1,
@@ -573,7 +588,7 @@
     }
   ],
   "startedAt": "2026-05-23T00:22:28",
-  "lastJobAt": "2026-06-01T17:16:52",
+  "lastJobAt": "2026-06-03T18:52:32",
   "reports": [
     {
       "id": 1779483545340,

@@ -38,7 +38,7 @@ export const DICT = {
       step2Title: 'Введите код из бота',
       step2Hint: 'Код из чата · действует 30 минут',
       openDocument: 'Открыть документ',
-      codePlaceholder: 'Нажмите чтобы ввести код',
+      codePlaceholder: 'Нажмите чтобы ввести код (напр. EXF7B1)',
     },
     screen2: {
       fileInfo: 'Информация о файле',
@@ -213,7 +213,7 @@ export const DICT = {
       step2Title: 'Боттан кодты енгізіңіз',
       step2Hint: 'Чаттан код · 30 минут жарамды',
       openDocument: 'Құжатты ашу',
-      codePlaceholder: 'Кодты енгізу үшін басыңыз',
+      codePlaceholder: 'Кодты енгізу үшін басыңыз (мыс. EXF7B1)',
     },
     screen2: {
       fileInfo: 'Файл туралы ақпарат',
@@ -388,7 +388,7 @@ export const DICT = {
       step2Title: 'Enter the code from the bot',
       step2Hint: 'Code from the chat · valid for 30 minutes',
       openDocument: 'Open document',
-      codePlaceholder: 'Tap to enter code',
+      codePlaceholder: 'Tap to enter code (e.g. EXF7B1)',
     },
     screen2: {
       fileInfo: 'File information',

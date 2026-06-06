@@ -42,7 +42,7 @@ GS_PATH      = os.environ.get("AU_GS_PATH", r"C:\Program Files\gs\gs10.07.1\bin\
 import os as _os
 if not _os.path.exists(GS_PATH):
     GS_PATH = r"C:\Program Files\gs\gs10.07.1\bin\gswin64c.exe"
-PRINTER_NAME = os.environ.get("AU_PRINTER", "Samsung ML-1660 Series")
+PRINTER_NAME = os.environ.get("AU_PRINTER", "Microsoft Print to PDF")
 
 # --- Цена печати ---
 # Серверная истина для расчёта суммы оплаты (фронту не доверяем).

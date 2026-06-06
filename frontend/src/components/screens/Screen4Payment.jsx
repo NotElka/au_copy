@@ -41,7 +41,7 @@ const Screen4Payment = React.memo(({
   return (
     <div className="flex min-h-full">
       {/* LEFT — Order summary */}
-      <div className="w-[55%] bg-[#F8FAFF] border-r border-[#E2E8F0] p-12 flex flex-col">
+      <div className="w-[42%] bg-[#F8FAFF] border-r border-[#E2E8F0] p-10 flex flex-col">
         <h2 className="text-[26px] font-semibold text-dark-blue">{t('screen4.yourOrder')}</h2>
         <div className="mt-5 bg-white border border-[#E2E8F0] rounded-[16px] overflow-hidden">
           {[
@@ -76,55 +76,48 @@ const Screen4Payment = React.memo(({
       </div>
 
       {/* RIGHT — Payment methods */}
-      <div className="w-[45%] p-10 flex flex-col">
+      <div className="w-[58%] p-10 flex flex-col">
         <h1 className="text-[28px] font-bold text-dark-blue">{t('screen4.paymentTitle')}</h1>
-        <p className="text-[16px] text-muted mt-1.5">{t('screen4.paymentSubtitle')}</p>
+        <p className="text-[16px] text-[#0F172A] mt-1.5">{t('screen4.paymentSubtitle')}</p>
 
-        {/* Kaspi QR */}
-        <div
-          className={`mt-6 border rounded-[18px] p-6 cursor-pointer relative transition-all duration-150
-            ${paymentMethod === 'kaspi'
-              ? 'border-2 border-kaspi-red bg-kaspi-light'
-              : 'border-[1.5px] border-[#E2E8F0] hover:border-kaspi-red hover:bg-kaspi-light'
-            }`}
-          onClick={() => { setPaymentMethod('kaspi'); console.log('[Screen4] Payment method selected: kaspi'); }}
-          data-testid="payment-kaspi"
-        >
-          <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors duration-150
-            ${paymentMethod === 'kaspi' ? 'border-kaspi-red bg-kaspi-red' : 'border-[#CBD5E1] bg-white'}`}>
-            {paymentMethod === 'kaspi' && <div className="w-2 h-2 rounded-full bg-white" />}
-          </div>
-          <div className="flex items-center gap-3">
-            <img src="/photos/kaspi.png" alt="Kaspi" className="w-11 h-11 object-contain" />
-            <div>
-              <p className="text-[13px] font-semibold text-kaspi-red uppercase tracking-wider">Kaspi.kz</p>
-              <h3 className="text-[19px] font-bold text-dark-blue leading-tight">{t('screen4.kaspiQr')}</h3>
+        {/* Payment choice — two big square buttons */}
+        <div className="mt-6 grid grid-cols-2 gap-4">
+          {/* Bank card — LEFT */}
+          <div
+            className={`aspect-square border rounded-[20px] p-6 cursor-pointer relative transition-all duration-150 flex flex-col items-center justify-center text-center
+              ${paymentMethod === 'card'
+                ? 'border-2 border-primary bg-primary-light'
+                : 'border-[1.5px] border-[#E2E8F0] hover:border-primary hover:bg-primary-light'
+              }`}
+            onClick={() => { setPaymentMethod('card'); console.log('[Screen4] Payment method selected: card'); }}
+            data-testid="payment-card"
+          >
+            <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors duration-150
+              ${paymentMethod === 'card' ? 'border-primary bg-primary' : 'border-[#CBD5E1] bg-white'}`}>
+              {paymentMethod === 'card' && <div className="w-2 h-2 rounded-full bg-white" />}
             </div>
-          </div>
-        </div>
-
-        {/* Bank card */}
-        <div
-          className={`mt-3 border rounded-[18px] p-6 cursor-pointer relative transition-all duration-150
-            ${paymentMethod === 'card'
-              ? 'border-2 border-primary bg-primary-light'
-              : 'border-[1.5px] border-[#E2E8F0] hover:border-primary hover:bg-primary-light'
-            }`}
-          onClick={() => { setPaymentMethod('card'); console.log('[Screen4] Payment method selected: card'); }}
-          data-testid="payment-card"
-        >
-          <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors duration-150
-            ${paymentMethod === 'card' ? 'border-primary bg-primary' : 'border-[#CBD5E1] bg-white'}`}>
-            {paymentMethod === 'card' && <div className="w-2 h-2 rounded-full bg-white" />}
-          </div>
-          <div className="flex items-center gap-3">
             <CreditCardIcon />
-            <div>
-              <p className="text-[13px] font-semibold text-primary uppercase tracking-wider">{t('screen4.bankCard')}</p>
-              <h3 className="text-[19px] font-bold text-dark-blue leading-tight">{t('screen4.bankCardSub')}</h3>
-            </div>
+            <p className="text-[13px] font-semibold text-primary uppercase tracking-wider mt-4">{t('screen4.bankCard')}</p>
+            <h3 className="text-[19px] font-bold text-dark-blue leading-tight mt-1">{t('screen4.bankCardSub')}</h3>
           </div>
-          <p className="text-[15px] text-muted mt-3">{t('screen4.cardHint')}</p>
+
+          {/* Kaspi QR — RIGHT (red, filled) */}
+          <div
+            className={`aspect-square rounded-[20px] p-6 cursor-pointer relative transition-all duration-150 flex flex-col items-center justify-center text-center bg-kaspi-red text-white shadow-lg hover:brightness-110 active:scale-[0.99]
+              ${paymentMethod === 'kaspi' ? 'ring-4 ring-kaspi-red/40' : ''}`}
+            onClick={() => { setPaymentMethod('kaspi'); console.log('[Screen4] Payment method selected: kaspi'); }}
+            data-testid="payment-kaspi"
+          >
+            <div className={`absolute top-4 right-4 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors duration-150
+              ${paymentMethod === 'kaspi' ? 'border-white bg-white' : 'border-white/70 bg-transparent'}`}>
+              {paymentMethod === 'kaspi' && <div className="w-2 h-2 rounded-full bg-kaspi-red" />}
+            </div>
+            <div className="w-14 h-14 rounded-[14px] bg-white flex items-center justify-center">
+              <img src="/photos/kaspi.png" alt="Kaspi" className="w-11 h-11 object-contain" />
+            </div>
+            <p className="text-[13px] font-semibold text-white/90 uppercase tracking-wider mt-4">Kaspi.kz</p>
+            <h3 className="text-[19px] font-bold text-white leading-tight mt-1">{t('screen4.kaspiQr')}</h3>
+          </div>
         </div>
 
         <button

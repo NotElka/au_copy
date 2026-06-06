@@ -51,11 +51,15 @@ class SessionStore:
         file_name: str,
         mime_type: str,
         page_count: int | None = None,
+        suffix: str | None = None,
     ) -> Session:
         async with self._lock:
             code = self._generate_code()
 
-        suffix = Path(file_name).suffix.lower()
+        # suffix позволяет хранить файл с нужным расширением (например .pdf для
+        # склеенной пачки), оставив file_name «человеческим» для отображения.
+        if suffix is None:
+            suffix = Path(file_name).suffix.lower()
         stored_path = STORAGE_DIR / f"{code}{suffix}"
 
         # Простая запись — файлы небольшие (≤25 МБ), отдельный поток не нужен.

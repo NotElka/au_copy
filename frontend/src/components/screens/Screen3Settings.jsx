@@ -346,7 +346,7 @@ const Screen3Settings = React.memo(({
               <p className="text-[17px] font-medium text-dark-blue">{t('screen3.duplex')}</p>
               <span className="text-[13px] bg-[#F1F5F9] text-[#64748B] px-2.5 py-0.5 rounded-full font-medium">{t('screen3.soon')}</span>
             </div>
-            <p className="text-[15px] text-muted">{t('screen3.duplexHint')}</p>
+            <p className="text-[15px] text-[#0F172A]">{t('screen3.duplexHint')}</p>
           </div>
           <Toggle checked={false} onChange={() => {}} />
         </div>

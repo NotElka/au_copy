@@ -10,7 +10,7 @@ export default {
         primary: '#2563EB',
         'primary-light': '#EFF6FF',
         'dark-blue': '#1E3A5F',
-        muted: '#94A3B8',
+        muted: '#334155',
         'border-color': '#E2E8F0',
         'kaspi-red': '#E83232',
         'kaspi-light': '#FFF0F0',
