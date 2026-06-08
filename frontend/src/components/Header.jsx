@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import StepIndicator from './StepIndicator';
 import LanguageSwitcher from './LanguageSwitcher';
-import PaperIndicator from './PaperIndicator';
+// import PaperIndicator from './PaperIndicator';  // временно убран счётчик бумаги
 import { useT } from '../i18n/LanguageProvider';
 
 const Logo = () => {
@@ -43,7 +43,7 @@ const Header = React.memo(({ currentScreen, onErrorReport }) => {
 
       {/* Right cluster — paper level, language, error button */}
       <div className="flex-shrink-0 flex items-center gap-3">
-        <PaperIndicator />
+        {/* <PaperIndicator />  временно убран счётчик бумаги */}
         <LanguageSwitcher />
         <button
           className="flex items-center gap-2.5 px-5 py-3 rounded-[14px] border-[1.5px] border-[#FCA5A5] bg-white text-[#DC2626] hover:bg-[#FEF2F2] hover:border-[#DC2626] active:scale-[0.97] transition-all duration-150 cursor-pointer"

@@ -3,7 +3,7 @@ import { usePrintPrice } from '../../hooks/usePrintPrice';
 import { useT } from '../../i18n/LanguageProvider';
 
 const CreditCardIcon = () => (
-  <svg width="52" height="36" viewBox="0 0 52 36" fill="none">
+  <svg width="124" height="86" viewBox="0 0 52 36" fill="none">
     <rect width="52" height="36" rx="8" fill="#2563EB"/>
     <rect x="7" y="10" width="13" height="10" rx="2.5" fill="#F59E0B"/>
     <line x1="7" y1="20" x2="52" y2="20" stroke="white" strokeOpacity="0.15" strokeWidth="6"/>
@@ -97,8 +97,8 @@ const Screen4Payment = React.memo(({
               {paymentMethod === 'card' && <div className="w-2 h-2 rounded-full bg-white" />}
             </div>
             <CreditCardIcon />
-            <p className="text-[13px] font-semibold text-primary uppercase tracking-wider mt-4">{t('screen4.bankCard')}</p>
-            <h3 className="text-[19px] font-bold text-dark-blue leading-tight mt-1">{t('screen4.bankCardSub')}</h3>
+            <p className="text-[18px] font-semibold text-primary uppercase tracking-wider mt-5">{t('screen4.bankCard')}</p>
+            <h3 className="text-[27px] font-bold text-dark-blue leading-tight mt-1.5">{t('screen4.bankCardSub')}</h3>
           </div>
 
           {/* Kaspi QR — RIGHT (red, filled) */}
@@ -112,11 +112,11 @@ const Screen4Payment = React.memo(({
               ${paymentMethod === 'kaspi' ? 'border-white bg-white' : 'border-white/70 bg-transparent'}`}>
               {paymentMethod === 'kaspi' && <div className="w-2 h-2 rounded-full bg-kaspi-red" />}
             </div>
-            <div className="w-14 h-14 rounded-[14px] bg-white flex items-center justify-center">
-              <img src="/photos/kaspi.png" alt="Kaspi" className="w-11 h-11 object-contain" />
+            <div className="w-40 h-40 rounded-[28px] bg-white flex items-center justify-center">
+              <img src="/photos/kaspi.png" alt="Kaspi" className="w-36 h-36 object-contain" />
             </div>
-            <p className="text-[13px] font-semibold text-white/90 uppercase tracking-wider mt-4">Kaspi.kz</p>
-            <h3 className="text-[19px] font-bold text-white leading-tight mt-1">{t('screen4.kaspiQr')}</h3>
+            <p className="text-[18px] font-semibold text-white/90 uppercase tracking-wider mt-5">Kaspi.kz</p>
+            <h3 className="text-[27px] font-bold text-white leading-tight mt-1.5">{t('screen4.kaspiQr')}</h3>
           </div>
         </div>
 
