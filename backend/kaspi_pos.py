@@ -250,6 +250,7 @@ class Payment:
     message: str | None = None    # человекочитаемый текст при fail
     paid: bool = False
     printed: bool = False
+    recorded: bool = False        # доход уже записан в реестр (чтобы не задвоить)
     created_at: float = field(default_factory=time.time)
     last_actualize: float = 0.0
 

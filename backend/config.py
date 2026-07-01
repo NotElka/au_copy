@@ -59,3 +59,16 @@ KASPI_POS_IP     = os.environ.get("AU_KASPI_POS_IP", "192.168.1.116")
 KASPI_POS_PORT   = int(os.environ.get("AU_KASPI_POS_PORT", "8080"))
 KASPI_POS_NAME   = os.environ.get("AU_KASPI_POS_NAME", "AuCopy")
 KASPI_OWN_CHEQUE = os.environ.get("AU_KASPI_OWN_CHEQUE", "0") == "1"
+
+# --- Отправка состояния в облако (мониторинг) ---
+# Киоск раз в CLOUD_REPORT_INTERVAL секунд шлёт свой статус в облачный сервис.
+#   AU_CLOUD_URL      — адрес облака. Пусто = отправка выключена.
+#   AU_KIOSK_ID       — уникальный идентификатор этой точки.
+#   AU_KIOSK_SECRET   — секретный ключ этой точки (пароль киоска для облака).
+# На старте облако крутится локально → AU_CLOUD_URL = http://127.0.0.1:9000
+CLOUD_URL             = os.environ.get("AU_CLOUD_URL", "http://127.0.0.1:9000")
+KIOSK_ID              = os.environ.get("AU_KIOSK_ID", "kiosk-local-01")
+KIOSK_SECRET          = os.environ.get("AU_KIOSK_SECRET", "dev-kiosk-secret-change-me")
+KIOSK_REGION          = os.environ.get("AU_KIOSK_REGION", "Алматы")
+CLOUD_REPORT_INTERVAL = int(os.environ.get("AU_CLOUD_REPORT_INTERVAL", "30"))
+APP_VERSION           = "0.1.0"

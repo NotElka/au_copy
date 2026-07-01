@@ -112,6 +112,7 @@ async def _handle_message(message: dict) -> None:
         return  # повтор от Meta — уже обработали
     sender = message.get("from")
     mtype = message.get("type")
+    log.info("incoming message: from=%s type=%s", sender, mtype)
 
     if mtype == "document":
         doc = message.get("document", {})
@@ -228,7 +229,7 @@ async def _send_text(to: str | None, text: str) -> None:
                 json=payload,
             )
             if resp.status_code >= 400:
-                log.error("send message failed %s: %s", resp.status_code, resp.text)
+                log.error("send message to %s failed %s: %s", to, resp.status_code, resp.text)
     except Exception:
         log.exception("send message failed")
 

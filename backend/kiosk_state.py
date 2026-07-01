@@ -12,7 +12,8 @@ import json
 import logging
 import shutil
 import time
-from datetime import datetime
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -24,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent
 STATE_FILE = BASE_DIR / "kiosk_state.json"
 MAX_ERRORS_KEPT = 20
 MAX_JOBS_KEPT = 50
+MAX_PAYMENTS_KEPT = 500
 
 DEFAULT_STATE = {
     "paper": {
@@ -41,6 +43,7 @@ DEFAULT_STATE = {
     },
     "errors": [],                  # последние MAX_ERRORS_KEPT — техн. ошибки бэка
     "reports": [],                 # отчёты от пользователей с фронта
+    "payments": [],                # реестр доходов; synced=False → ещё не ушло в облако
     "startedAt": None,
     "lastJobAt": None,
 }
@@ -131,6 +134,51 @@ class KioskState:
             recent.insert(0, entry)
             del recent[MAX_JOBS_KEPT:]
             self._save()
+
+    # ── реестр доходов (для облачной бухгалтерии) ────────────────────────
+
+    async def record_payment(self, *, amount: int, method: str | None,
+                             code: str, sheets: int) -> None:
+        """Фиксирует успешный платёж. Уходит в облако следующим heartbeat-ом."""
+        async with self._lock:
+            entry = {
+                "id": uuid.uuid4().hex,   # глобально уникален → облако дедуплицирует
+                "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                "amount": int(amount),
+                "method": method or "unknown",
+                "code": code,
+                "sheets": int(sheets),
+                "synced": False,
+            }
+            payments = self._data.setdefault("payments", [])
+            payments.insert(0, entry)
+            del payments[MAX_PAYMENTS_KEPT:]
+            self._save()
+        log.info("payment recorded: %s₸ via %s (code=%s)", amount, entry["method"], code)
+
+    async def unsynced_payments(self) -> list[dict]:
+        """Платежи, ещё не подтверждённые облаком (для отправки в heartbeat)."""
+        async with self._lock:
+            fields = ("id", "at", "amount", "method", "code", "sheets")
+            return [
+                {k: p.get(k) for k in fields}
+                for p in self._data.get("payments", [])
+                if not p.get("synced")
+            ]
+
+    async def mark_payments_synced(self, ids: list[str]) -> None:
+        """Помечает платежи как ушедшие в облако (после успешного heartbeat)."""
+        if not ids:
+            return
+        idset = set(ids)
+        async with self._lock:
+            changed = False
+            for p in self._data.get("payments", []):
+                if p.get("id") in idset and not p.get("synced"):
+                    p["synced"] = True
+                    changed = True
+            if changed:
+                self._save()
 
     async def record_error(self, message: str, context: dict | None = None) -> None:
         async with self._lock:

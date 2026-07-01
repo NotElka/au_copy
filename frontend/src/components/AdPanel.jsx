@@ -12,8 +12,7 @@ import { useT } from '../i18n/LanguageProvider';
 //
 // Примеры (раскомментируй и подставь свои файлы):
 const AD_MEDIA = [
-  // { type: 'image', src: '/ads/ad1.jpg' },
-  // { type: 'image', src: '/ads/ad2.jpg' },
+  
   // { type: 'video', src: '/ads/promo.mp4' },
 ];
 
@@ -22,7 +21,7 @@ const SLIDE_INTERVAL_MS = 6000; // как долго висит одна кар�
 
 function Placeholder({ label }) {
   return (
-    <div className="w-full min-h-[60vh] border-2 border-dashed border-[#BFCFE8] rounded-3xl flex flex-col items-center justify-center gap-4 px-6 py-8">
+    <div className="w-full h-full min-h-[60vh] border-2 border-dashed border-[#BFCFE8] rounded-3xl flex flex-col items-center justify-center gap-4 px-6 py-8">
       <div className="w-[60px] h-[60px] rounded-2xl bg-[#DBEAFE] flex items-center justify-center">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
           <rect x="1" y="4" width="26" height="20" rx="3" stroke="#60A5FA" strokeWidth="1.8" />
@@ -74,7 +73,7 @@ export default function AdPanel() {
   }
 
   return (
-    <div className="relative w-full min-h-[60vh] rounded-3xl overflow-hidden bg-black">
+    <div className="relative w-full h-full min-h-[60vh] rounded-3xl overflow-hidden bg-black">
       {items.map((m, i) => (
         <div
           key={i}

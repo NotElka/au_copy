@@ -3,6 +3,16 @@
 
 # Секреты Kaspi Smart POS — токены доступа к терминалу (не коммитить)
 backend/kaspi_token.json
-
+backend/storage/
 # Секреты WhatsApp Cloud API (токен доступа, app secret) — не коммитить
 whatsapp/secrets.env
+
+# Облачный сервис: ПОКА не коммитим целиком (временно).
+# Когда захочешь закоммитить cloud/ — удали строку "cloud/" ниже,
+# а игнор файлов БД оставь.
+cloud/
+
+# База данных облачного сервиса (генерится локально)
+cloud/cloud.db
+cloud/cloud.db-wal
+cloud/cloud.db-shm

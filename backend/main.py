@@ -14,6 +14,7 @@ from .config import (
     UPLOAD_TOKEN,
 )
 from .bundle import merge_to_single_pdf
+from .cloud_report import report_loop
 from .kaspi_pos import KaspiError, payment_service
 from .kiosk_state import state as kiosk_state
 from .pdf_pages import count_pdf_pages
@@ -28,14 +29,16 @@ ADMIN_TOKEN = "admin-secret-change-me"
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     cleanup_task = asyncio.create_task(store.cleanup_loop())
+    cloud_task = asyncio.create_task(report_loop())
     try:
         yield
     finally:
-        cleanup_task.cancel()
-        try:
-            await cleanup_task
-        except asyncio.CancelledError:
-            pass
+        for task in (cleanup_task, cloud_task):
+            task.cancel()
+            try:
+                await task
+            except asyncio.CancelledError:
+                pass
 
 
 app = FastAPI(title="AU Copy backend", lifespan=lifespan)
@@ -246,6 +249,13 @@ async def kaspi_status(process_id: str) -> JSONResponse:
         payment = await payment_service.poll(process_id)
     except KaspiError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
+    # Платёж только что подтвердился → один раз фиксируем доход (уйдёт в облако).
+    if payment.paid and not payment.recorded:
+        payment.recorded = True
+        await kiosk_state.record_payment(
+            amount=payment.amount, method=payment.method,
+            code=payment.code, sheets=payment.sheets,
+        )
     return JSONResponse({
         "status": payment.status,
         "subStatus": payment.sub_status,

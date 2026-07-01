@@ -24,11 +24,33 @@ Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd '$root'; & '$p
 # --- Telegram-бот (нужен token.txt; backend должен быть запущен) ---
 $tokenFile = Join-Path $root "telega\token.txt"
 if ((Test-Path $tokenFile) -and ((Get-Content $tokenFile -Raw).Trim().Length -gt 0)) {
-    Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd '$root'; & '$py' -m telega.bot"
+    # Бот падает, если стартует раньше, чем поднялась сеть/DNS (getaddrinfo failed).
+    # Поэтому в его окне сначала ждём доступности api.telegram.org, потом запускаем.
+    $botCmd = "cd '$root'; " +
+        "Write-Host 'Жду доступ к Telegram...' -ForegroundColor Cyan; " +
+        "while (-not (Test-NetConnection api.telegram.org -Port 443 -WarningAction SilentlyContinue -InformationLevel Quiet)) { Start-Sleep -Seconds 5 }; " +
+        "& '$py' -m telega.bot"
+    Start-Process powershell -ArgumentList "-NoExit", "-Command", $botCmd
 } else {
     Write-Host "Пропускаю бота: telega\token.txt пуст или отсутствует." -ForegroundColor Yellow
 }
 
+# --- WhatsApp-бот (FastAPI :8001; нужен whatsapp\secrets.env) ---
+$waSecrets = Join-Path $root "whatsapp\secrets.env"
+if (Test-Path $waSecrets) {
+    Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd '$root'; & '$py' -m whatsapp.run"
+
+    # --- ngrok-туннель: публичный HTTPS-адрес для вебхука WhatsApp ---
+    $ngrok = (Get-Command ngrok -ErrorAction SilentlyContinue).Source
+    if (-not $ngrok) { $ngrok = "C:\Users\elmur\AppData\Local\Microsoft\WinGet\Links\ngrok.exe" }
+    if (Test-Path $ngrok) {
+        Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd '$root'; & '$ngrok' http 8001 --domain=geranium-finale-lurch.ngrok-free.dev"
+    } else {
+        Write-Host "Пропускаю туннель: ngrok не найден." -ForegroundColor Yellow
+    }
+} else {
+    Write-Host "Пропускаю WhatsApp-бот: whatsapp\secrets.env отсутствует." -ForegroundColor Yellow
+}
 # --- Фронтенд ---
 $frontend = Join-Path $root "frontend"
 if (-not (Test-Path (Join-Path $frontend "node_modules"))) {
@@ -62,5 +84,6 @@ if (-not $NoKiosk) {
 Write-Host ""
 Write-Host "Бэкенд -> http://localhost:8000  (Swagger: /docs)" -ForegroundColor Green
 Write-Host "Бот    -> Telegram (long polling)" -ForegroundColor Green
+Write-Host "WhatsApp -> https://geranium-finale-lurch.ngrok-free.dev/webhook" -ForegroundColor Green
 Write-Host "Фронт  -> http://localhost:5173" -ForegroundColor Green
 Write-Host "Логи в открывшихся окнах. Чтобы остановить — закрой их."

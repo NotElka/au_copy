@@ -73,8 +73,8 @@ const Screen1Upload = React.memo(({ onNext, onSessionLoaded }) => {
   return (
     <div className="flex min-h-full bg-[#F8FAFC]">
       {/* ── LEFT — Ad / promo panel ── */}
-      <div className="w-[34%] flex-shrink-0 bg-[#F0F6FF] border-r border-[#E2E8F0] flex items-start justify-center py-12">
-        <div className="w-[75%]">
+      <div className="w-[34%] flex-shrink-0 bg-[#F0F6FF] border-r border-[#E2E8F0] flex items-stretch justify-center py-12">
+        <div className="w-[75%] flex">
           <AdPanel />
         </div>
       </div>
@@ -131,19 +131,11 @@ const Screen1Upload = React.memo(({ onNext, onSessionLoaded }) => {
                     <img src="/photos/whatsapp.png" alt="WhatsApp" className="w-11 h-11 object-contain" />
                     <p className="text-[20px] font-bold text-dark-blue">{t('screen1.whatsapp')}</p>
                   </div>
-                  <div className="mt-3 w-[240px] h-[240px] bg-[#F8FAFC] rounded-2xl flex flex-col items-center justify-center border-2 border-[#F1F5F9] gap-2.5">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
-                      <rect x="3" y="3" width="7" height="7" rx="1" stroke="#94A3B8" strokeWidth="1.5"/>
-                      <rect x="14" y="3" width="7" height="7" rx="1" stroke="#94A3B8" strokeWidth="1.5"/>
-                      <rect x="3" y="14" width="7" height="7" rx="1" stroke="#94A3B8" strokeWidth="1.5"/>
-                      <rect x="14" y="14" width="3" height="3" stroke="#94A3B8" strokeWidth="1.5"/>
-                      <rect x="18" y="14" width="3" height="3" stroke="#94A3B8" strokeWidth="1.5"/>
-                      <rect x="14" y="18" width="3" height="3" stroke="#94A3B8" strokeWidth="1.5"/>
-                    </svg>
-                    <p className="text-[#94A3B8] text-[14px] font-semibold">{t('screen1.whatsappSoon')}</p>
+                  <div className="mt-3 w-[240px] h-[240px] bg-white rounded-2xl flex items-center justify-center border-2 border-[#F1F5F9] overflow-hidden p-1.5">
+                    <img src="/photos/whatsappQr.png" alt="QR WhatsApp" className="w-full h-full object-contain rounded-xl" />
                   </div>
                   <div className="mt-2.5 inline-flex items-center gap-1.5 bg-[#F0FDF4] text-[#25D366] px-3.5 py-1.5 rounded-full">
-                    <span className="text-[15px] font-bold">+7 (700) 000-0000</span>
+                    <span className="text-[15px] font-bold">+7 (706) 600-25-67</span>
                   </div>
                 </div>
               </div>

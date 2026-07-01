@@ -1,0 +1,99 @@
+INFO:     Started server process [16420]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:59836 - "GET /health HTTP/1.1" 200 OK
+2026-06-29 14:43:39,420 [INFO] webhook verified ok
+INFO:     127.0.0.1:59837 - "GET /webhook?hub.mode=subscribe&hub.verify_token=aucopy-verify-change-me&hub.challenge=test123 HTTP/1.1" 200 OK
+2026-06-29 14:44:36,375 [INFO] webhook verified ok
+INFO:     2a0d:b201:c041:f667:b03c:402e:7b50:66a8:0 - "GET /webhook?hub.mode=subscribe&hub.verify_token=aucopy-verify-change-me&hub.challenge=meta_check_999 HTTP/1.1" 200 OK
+2026-06-29 14:48:03,464 [INFO] webhook verified ok
+INFO:     2a03:2880:31ff:45:::0 - "GET /webhook?hub.mode=subscribe&hub.challenge=932395073&hub.verify_token=aucopy-verify-change-me&hub_mode=subscribe&hub_challenge=932395073&hub_verify_token=aucopy-verify-change-me HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:2:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:51:44,449 [INFO] incoming message: from=77054367125 type=text
+2026-06-29 14:51:46,933 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:21ff:6:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:51:47,794 [INFO] incoming message: from=77054367125 type=text
+INFO:     2a03:2880:10ff:10:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:2ff:5f:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:51:49,746 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:22ff:54:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:22ff:51:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:5b:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:51:58,155 [INFO] incoming message: from=77054367125 type=image
+2026-06-29 14:52:01,438 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:2ff:41:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:2ff:45:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:52:04,655 [INFO] HTTP Request: GET https://graph.facebook.com/v21.0/1693263661912252 "HTTP/1.1 200 OK"
+2026-06-29 14:52:06,560 [INFO] HTTP Request: GET https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=1693263661912252&source=getMedia&ext=1782727024&hash=ARlthOxz-cIrKR6p3t3D4dEX5IFHXU2VkNbY3PeaG4ngyA "HTTP/1.1 200 OK"
+2026-06-29 14:52:07,700 [INFO] HTTP Request: POST http://127.0.0.1:8000/api/upload "HTTP/1.1 200 OK"
+2026-06-29 14:52:09,923 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:10ff:7:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:22ff:73:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:53:31,246 [INFO] incoming message: from=77017791148 type=text
+2026-06-29 14:53:33,314 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:22ff:8:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:50:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:22ff:7:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:b:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:54:46,642 [INFO] incoming message: from=77054367125 type=unsupported
+INFO:     2a03:2880:22ff:4a:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:54:47,901 [INFO] incoming message: from=77054367125 type=image
+INFO:     2a03:2880:22ff:71:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:54:48,659 [INFO] incoming message: from=77054367125 type=image
+2026-06-29 14:54:49,435 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:22ff:4f:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:54:51,274 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:22ff:46:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:22ff:4b:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:22ff:3:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:54:55,451 [INFO] HTTP Request: GET https://graph.facebook.com/v21.0/1471263014769132 "HTTP/1.1 200 OK"
+2026-06-29 14:54:56,180 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+2026-06-29 14:54:56,970 [INFO] HTTP Request: GET https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=1471263014769132&source=getMedia&ext=1782727195&hash=ARmaGtvDqB7A9SfSpui3zZXykIgrz9PXf0c5eYCIPD12SA "HTTP/1.1 200 OK"
+INFO:     2a03:2880:10ff:8:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:54:57,924 [INFO] HTTP Request: POST http://127.0.0.1:8000/api/upload "HTTP/1.1 200 OK"
+INFO:     2a03:2880:2ff:2:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:54:59,288 [INFO] HTTP Request: GET https://graph.facebook.com/v21.0/971062809268956 "HTTP/1.1 200 OK"
+2026-06-29 14:55:00,712 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:2ff:40:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:7:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:55:09,608 [INFO] HTTP Request: GET https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=971062809268956&source=getMedia&ext=1782727199&hash=ARlqnPbs38OoC8gAtcfLYn8_qbyJ-2CsjJvWjf_PFZ5j6g "HTTP/1.1 200 OK"
+2026-06-29 14:55:11,736 [INFO] HTTP Request: POST http://127.0.0.1:8000/api/upload "HTTP/1.1 200 OK"
+2026-06-29 14:55:13,650 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:21ff:71:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:73:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:22ff:4:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:55:51,736 [INFO] incoming message: from=77017791148 type=document
+2026-06-29 14:55:53,846 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+2026-06-29 14:55:55,346 [INFO] HTTP Request: GET https://graph.facebook.com/v21.0/2619426468527649 "HTTP/1.1 200 OK"
+INFO:     2a03:2880:2ff:4c:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:4d:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:55:56,595 [INFO] HTTP Request: GET https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=2619426468527649&source=getMedia&ext=1782727255&hash=ARlHytLGq__1wWFa5b9T1-7bjVGNujsWj8P8I3hHs9ViaQ "HTTP/1.1 200 OK"
+INFO:     2a03:2880:12ff:72:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 14:55:57,735 [INFO] HTTP Request: POST http://127.0.0.1:8000/api/upload "HTTP/1.1 200 OK"
+2026-06-29 14:55:59,798 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:10ff:11:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:12ff:4:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:12ff:4:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-29 15:53:12,510 [INFO] incoming message: from=77772608350 type=text
+2026-06-29 15:53:15,607 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:21ff:2:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:2ff:5e:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:21ff:42:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-30 12:34:05,397 [INFO] incoming message: from=77017791148 type=text
+2026-06-30 12:34:08,715 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:22ff:4b:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:50:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:b:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:5a:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-30 13:06:00,165 [INFO] incoming message: from=77763187445 type=text
+2026-06-30 13:06:02,746 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:10ff:d:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:22ff:7:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:9:::0 - "POST /webhook HTTP/1.1" 200 OK
+2026-06-30 14:40:40,102 [INFO] incoming message: from=77054367125 type=text
+2026-06-30 14:40:44,604 [INFO] HTTP Request: POST https://graph.facebook.com/v21.0/1120245771182826/messages "HTTP/1.1 200 OK"
+INFO:     2a03:2880:10ff:52:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:22ff:49:::0 - "POST /webhook HTTP/1.1" 200 OK
+INFO:     2a03:2880:10ff:a:::0 - "POST /webhook HTTP/1.1" 200 OK
