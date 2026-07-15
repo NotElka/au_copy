@@ -135,7 +135,7 @@ const Screen1Upload = React.memo(({ onNext, onSessionLoaded }) => {
                     <img src="/photos/whatsappQr.png" alt="QR WhatsApp" className="w-full h-full object-contain rounded-xl" />
                   </div>
                   <div className="mt-2.5 inline-flex items-center gap-1.5 bg-[#F0FDF4] text-[#25D366] px-3.5 py-1.5 rounded-full">
-                    <span className="text-[15px] font-bold">+7 (706) 600-25-67</span>
+                    <span className="text-[15px] font-bold">+7 (707) 13 94 0 94</span>
                   </div>
                 </div>
               </div>
